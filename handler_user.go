@@ -2,10 +2,12 @@ package main
 
 import (
 	"encoding/json"
+
 	"net/http"
 	"time"
 
 	"github.com/AungKyawPhyo1142/RSS-aggregator/internal/database"
+
 	"github.com/google/uuid"
 )
 
@@ -37,5 +39,9 @@ func (apiCfg *API_CONFIG) handlerCreateUser(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	respondWithJSON(w, http.StatusOK, user)
+	respondWithJSON(w, http.StatusCreated, DatabaseUserToUser(user))
+}
+
+func (apiCfg *API_CONFIG) handlerGetUser(w http.ResponseWriter, r *http.Request, user database.User) {
+	respondWithJSON(w, http.StatusOK, DatabaseUserToUser(user))
 }
